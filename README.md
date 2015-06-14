@@ -17,7 +17,7 @@ module.exports = function(environment) {
     "development": {
       // ...
       "slack": {
-        "webhookURL": "https://hooks.slack.com/services/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",
+        "webhookURL": "<your-webhook-URI>",
         "channel": "#notifications",
         "username": "ember-cli-deploy"
       },
@@ -53,7 +53,7 @@ module.exports = function(environment) {
     "development": {
       // ...
       "slack": {
-        "webhookURL": "https://hooks.slack.com/services/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",
+        "webhookURL": "<your-webhook-URI>",
         "channel": "#notifications",
         "username": "ember-cli-deploy",
         "didDeploy": function(context, slack) {
