@@ -12,10 +12,12 @@ var yellow = chalk.yellow;
 
 function applyDefaultConfigIfNecessary(config, prop, defaultConfig, ui){
   if (!config[prop]) {
-    var value = defaultConfig[prop];
+    var value = defaultConfig[prop] || function() { return; };
     config[prop] = value;
-    ui.write(blue('|    '));
-    ui.writeLine(yellow('- Missing config: `' + prop + '`, using default: `' + value + '`'));
+    if (defaultConfig[prop]) {
+      ui.write(blue('|    '));
+      ui.writeLine(yellow('- Missing config: `' + prop + '`, using default: `' + value + '`'));
+    }
   }
 }
 
@@ -61,6 +63,42 @@ module.exports = {
 
       willDeploy: function(context) {
         return executeSlackNotificationHook.bind(this)(context, 'willDeploy');
+      },
+
+      willBuild: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'willBuild');
+      },
+
+      build: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'build');
+      },
+
+      didBuild: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'didBuild');
+      },
+
+      willUpload: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'willUpload');
+      },
+
+      upload: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'upload');
+      },
+
+      didUpload: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'didUpload');
+      },
+
+      willActivate: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'willActivate');
+      },
+
+      activate: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'activate');
+      },
+
+      didActivate: function(context) {
+        return executeSlackNotificationHook.bind(this)(context, 'didActivate');
       },
 
       didDeploy: function(context) {
