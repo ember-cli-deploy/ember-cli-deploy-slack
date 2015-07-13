@@ -13,7 +13,6 @@
     "test": "node node_modules/mocha/bin/mocha  node-tests/**/*-test.js",
     "autotest": "node node_modules/mocha/bin/mocha --watch --reporter spec node-tests/**/*-test.js"
   },
-  "repository": "",
   "engines": {
     "node": ">= 0.10.0"
   },
