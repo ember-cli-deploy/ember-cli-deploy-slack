@@ -1,4 +1,4 @@
-# Ember-cli-deploy-slack
+# Ember-cli-deploy-slack [![Build Status](https://travis-ci.org/LevelbossMike/ember-cli-deploy-slack.svg?branch=master)](https://travis-ci.org/LevelbossMike/ember-cli-deploy-slack)
 
 An ember-cli-deploy-plugin for sending deployment messages to [Slack](https://slack.com/).
 
