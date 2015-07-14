@@ -1,5 +1,5 @@
 'use strict';
-var Promise    = require('ember-cli/lib/Ext/promise');
+var Promise = require('ember-cli/lib/ext/promise');
 var assert = require('ember-cli/tests/helpers/assert');
 
 var WEBHOOK_URL = 'https://hooks.slack.com/services/123123';
