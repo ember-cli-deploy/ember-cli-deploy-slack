@@ -5,8 +5,7 @@ An ember-cli-deploy-plugin for sending deployment messages to [Slack](https://sl
 ## Usage
 
 This plugin will only work with the upcoming 0.5.0-release of
-[ember-cli-deploy](https://github.com/ember-cli/ember-cli-deploy). Right now
-you have to use my [didFail branch](levelbossmike/ember-cli-deploy#didFail-hook-).
+[ember-cli-deploy](https://github.com/ember-cli/ember-cli-deploy).
 
 To setup ember-cli-deploy-slack you need to add a `slack`-entry into your
 `deploy.js` configuration file:

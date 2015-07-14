@@ -31,7 +31,6 @@ module.exports = {
             var endDeployDate      = new Date();
             var duration           = moment.duration(endDeployDate - startDeployDate);
 
-            debugger;
             return slack.notify({
               attachments: [{
                 "fallback":"Deployment finished! New revision was successfully uploaded.",
