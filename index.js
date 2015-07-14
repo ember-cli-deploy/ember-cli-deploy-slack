@@ -4,110 +4,145 @@
 var Promise       = require('ember-cli/lib/Ext/promise');
 var SilentError   = require('ember-cli/lib/errors/silent');
 var SlackNotifier = require('./lib/slack-notifier');
-var defaults      = require('./lib/default-config');
-var chalk         = require('chalk');
+var DeployPluginBase = require('ember-cli-deploy-plugin');
 
-var blue   = chalk.blue;
-var yellow = chalk.yellow;
-
-function applyDefaultConfigIfNecessary(config, prop, defaultConfig, ui){
-  if (!config[prop]) {
-    var value = defaultConfig[prop] || function() { return; };
-    config[prop] = value;
-    if (defaultConfig[prop]) {
-      ui.write(blue('|    '));
-      ui.writeLine(yellow('- Missing config: `' + prop + '`, using default: `' + value + '`'));
-    }
-  }
-}
-
-function initSlackNotifier(config, context) {
-  var webhookURL = config.webhookURL;
-
-  if (!webhookURL) {
-    var message   = 'Ember-CLI-Deploy: You have to pass a `webhookURL` config-option to ember-cli-deploy-slack';
-    context.slack = context.slack || {};
-
-    context.slack.error = message;
-
-    throw new SilentError(message);
-  }
-
-  var channel   = config.channel;
-  var username  = config.username;
-
-  return new SlackNotifier({
-    webhookURL: webhookURL,
-    channel: channel,
-    username: username
-  });
-}
-
-function executeSlackNotificationHook(context, hookName) {
-    var deployment = context.deployment;
-    var ui         = deployment.ui;
-    var config     = deployment.config[this.name] = deployment.config[this.name] || {};
-    var slack      = initSlackNotifier(config, context);
-
-    applyDefaultConfigIfNecessary(config, hookName, defaults, ui);
-
-    return config[hookName](context, slack);
-}
+var moment = require('moment');
+require('moment-duration-format');
 
 module.exports = {
   name: 'ember-cli-deploy-slack',
 
   createDeployPlugin: function(options) {
-    return {
+    var DeployPlugin = DeployPluginBase.extend({
       name: options.name,
+      requiredConfig: ['webhookURL'],
+      defaultConfig: {
+        willDeploy: function(context) {
+          return function(slack){
+            return {
+              slackStartDeployDate: new Date()
+            };
+          }
+        },
 
-      willDeploy: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'willDeploy');
+        didDeploy: function(context) {
+          return function(slack){
+            var startDeployDate    = this.context.slackStartDeployDate;
+            var endDeployDate      = new Date();
+            var duration           = moment.duration(endDeployDate - startDeployDate);
+
+            debugger;
+            return slack.notify({
+              attachments: [{
+                "fallback":"Deployment finished! New revision was successfully uploaded.",
+                "pretext":"Deployment finished! New revision was successfully uploaded.",
+                "color":"good",
+                "fields":[
+                   {
+                      "title":"Stats",
+                      "value":"Deploying revision took "+duration.format('m [min], s [s], S [ms]')+'.',
+                      "short":false
+                   }
+                 ]
+              }]
+            });
+          };
+        },
+
+        didFail: function(slack) {
+          return function(context){
+            var message = "Ember-cli-deploy tried to deploy a revision but failed.";
+
+            return slack.notify({
+              attachments: [{
+               "fallback": "Deployment failed!",
+               "pretext": "Deployment failed!",
+               "color": "danger",
+               "fields":[
+                  {
+                     "title": "Failure",
+                     "value": message,
+                     "short": false
+                  }
+               ]
+              }]
+            });
+          };
+        }
       },
 
-      willBuild: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'willBuild');
+      willDeploy: function(/* context */) {
+        return this._executeSlackNotificationHook('willDeploy');
       },
 
-      build: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'build');
+      willBuild: function(/* context */) {
+        return this._executeSlackNotificationHook('willBuild');
       },
 
-      didBuild: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'didBuild');
+      build: function(/* context */) {
+        return this._executeSlackNotificationHook('build');
       },
 
-      willUpload: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'willUpload');
+      didBuild: function(/* context */) {
+        return this._executeSlackNotificationHook('didBuild');
       },
 
-      upload: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'upload');
+      willUpload: function(/* context */) {
+        return this._executeSlackNotificationHook('willUpload');
       },
 
-      didUpload: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'didUpload');
+      upload: function(/* context */) {
+        return this._executeSlackNotificationHook('upload');
       },
 
-      willActivate: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'willActivate');
+      didUpload: function(/* context */) {
+        return this._executeSlackNotificationHook('didUpload');
       },
 
-      activate: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'activate');
+      willActivate: function(/* context */) {
+        return this._executeSlackNotificationHook('willActivate');
       },
 
-      didActivate: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'didActivate');
+      activate: function(/* context */) {
+        return this._executeSlackNotificationHook('activate');
       },
 
-      didDeploy: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'didDeploy');
+      didActivate: function(/* context */) {
+        return this._executeSlackNotificationHook('didActivate');
       },
 
-      didFail: function(context) {
-        return executeSlackNotificationHook.bind(this)(context, 'didFail');
+      didDeploy: function(/* context */) {
+        return this._executeSlackNotificationHook('didDeploy');
+      },
+
+      didFail: function(/* context */) {
+        return this._executeSlackNotificationHook('didFail');
+      },
+      _executeSlackNotificationHook: function(hookName) {
+        var slack      = this._initSlackNotifier();
+        var slackHook = this.readConfig(hookName);
+        if (slackHook) {
+          return slackHook.call(this, slack);
+        }
+      },
+      _initSlackNotifier: function() {
+        var webhookURL = this.readConfig('webhookURL');
+
+        if (!webhookURL) {
+          var message   = 'Ember-CLI-Deploy: You have to pass a `webhookURL` config-option to ember-cli-deploy-slack';
+          throw new Error(message);
+        }
+
+        var channel   = this.readConfig('channel');
+        var username  = this.readConfig('username');
+
+        return this.readConfig('slackNotifier') || new SlackNotifier({
+          webhookURL: webhookURL,
+          channel: channel,
+          username: username
+        });
       }
-    }
+    });
+    return new DeployPlugin();
   }
 };
