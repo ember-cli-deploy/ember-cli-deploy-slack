@@ -48,8 +48,8 @@ module.exports = {
           };
         },
 
-        didFail: function(slack) {
-          return function(context){
+        didFail: function(context) {
+          return function(slack) {
             var message = "Ember-cli-deploy tried to deploy a revision but failed.";
 
             return slack.notify({
