@@ -55,11 +55,13 @@ module.exports = function(environment) {
         "webhookURL": "<your-webhook-URI>",
         "channel": "#notifications",
         "username": "ember-cli-deploy",
-        "didDeploy": function(context, slack) {
-          return slack.notify({
-            text: 'w00t I can haz custumizations!'
-          });
-        }
+        "didDeploy": function(context) {
+          return function(slack) {
+            return slack.notify({
+              text: 'w00t I can haz custumizations!'
+            });
+          };
+        },
       },
       // ...
     },
