@@ -2,7 +2,7 @@
 'use strict';
 
 var Promise       = require('ember-cli/lib/ext/promise');
-var SilentError   = require('ember-cli/lib/errors/silent');
+var SilentError   = require('silent-error');
 var SlackNotifier = require('./lib/slack-notifier');
 var DeployPluginBase = require('ember-cli-deploy-plugin');
 
