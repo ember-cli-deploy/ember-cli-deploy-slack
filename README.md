@@ -98,7 +98,34 @@ ENV.slack = {
 ```
 
 Notification hooks will be passed the deployment context and the slackNotifier
-utility class. The SlackNotifier uses [node-slackr](https://github.com/chenka/node-slackr) under the hood so you can use its `notify`-function accordingly. This enables you to customize your messages in any way possible. You can even add custom properties to the deployment context if that's what you need to do.
+utility class. The SlackNotifier uses [node-slackr](https://github.com/chenka/node-slackr) under the hood so you can use its `notify`-function accordingly. This enables you to customize your messages in any way possible.
+
+Because of the way `ember-cli-deploy` merges return values of hooks back into the deployment context, you can easily add custom properties to the deployment context if that's what you need to do:
+
+```javascript
+ENV.slack = {
+  webhookURL: '<your-webhook-URI>',
+  willDeploy: function(context) {
+    return function(slack) {
+      return {
+        slackStartDeployDate: new Date()
+      };
+    };
+  },
+
+  didDeploy: function(context) {
+    return function(slack) {
+      var start = context.slackStartDeployDate;
+      var end = new Date();
+      var duration = (end - start) / 1000;
+
+      return slack.notify({
+        text: 'Deploy took '+duration+' seconds'
+      });
+    };
+  }
+}
+```
 
 Please see the [Slack API documentation for message formatting](https://api.slack.com/docs/formatting)
 to see how you can customize your messages.
