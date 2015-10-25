@@ -101,6 +101,8 @@ describe('the index', function() {
         }
       };
 
+      mockUi.verbose = true;
+
       plugin.beforeHook(context);
       plugin.configure(context);
 
