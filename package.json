@@ -6,7 +6,7 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "https://github.com/LevelbossMike/ember-cli-deploy-slack",
+  "repository": "https://github.com/ember-cli-deploy/ember-cli-deploy-slack",
   "scripts": {
     "start": "ember server",
     "build": "ember build",
