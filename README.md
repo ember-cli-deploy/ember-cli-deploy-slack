@@ -2,9 +2,7 @@
 
 > An ember-cli-deploy-plugin for sending deployment messages to [Slack](https://slack.com/).
 
-<hr/>
-**WARNING: This plugin is only compatible with ember-cli-deploy versions >= 0.5.0**
-<hr/>
+[![](https://ember-cli-deploy.github.io/ember-cli-deploy-version-badges/plugins/ember-cli-deploy-slack.svg)](http://ember-cli-deploy.github.io/ember-cli-deploy-version-badges/)
 
 ## What is an ember-cli-deploy plugin?
 
