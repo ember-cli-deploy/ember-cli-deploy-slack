@@ -82,8 +82,9 @@ describe('the index', function() {
       };
 
       plugin.beforeHook(context);
+      plugin.configure(context);
       assert.throws(function(){
-        plugin.configure(context);
+        plugin.didDeploy(context);
       })
     });
 
@@ -113,7 +114,7 @@ describe('the index', function() {
 
         return previous;
       }, []);
-      assert.equal(messages.length, 3);
+      assert.equal(messages.length, 4);
     });
 
     it('adds default config to the config object', function() {
