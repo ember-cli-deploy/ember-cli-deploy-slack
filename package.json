@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-deploy-slack",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An ember-cli-deploy-plugin for sending messages to Slack",
   "directories": {
     "doc": "doc",
