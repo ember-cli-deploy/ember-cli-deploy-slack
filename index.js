@@ -15,8 +15,9 @@ module.exports = {
   createDeployPlugin: function(options) {
     var DeployPlugin = DeployPluginBase.extend({
       name: options.name,
-      requiredConfig: ['webhookURL'],
       defaultConfig: {
+        enabled: true,
+
         willDeploy: function(context) {
           return function(slack){
             return {
@@ -126,8 +127,9 @@ module.exports = {
       },
       _initSlackNotifier: function() {
         var webhookURL = this.readConfig('webhookURL');
+        var enabled  = !!this.readConfig('enabled');
 
-        if (!webhookURL) {
+        if (!webhookURL && enabled) {
           var message   = 'Ember-CLI-Deploy: You have to pass a `webhookURL` config-option to ember-cli-deploy-slack';
           throw new Error(message);
         }
@@ -136,6 +138,7 @@ module.exports = {
         var username  = this.readConfig('username');
 
         return this.readConfig('slackNotifier') || new SlackNotifier({
+          enabled: enabled,
           webhookURL: webhookURL,
           channel: channel,
           username: username

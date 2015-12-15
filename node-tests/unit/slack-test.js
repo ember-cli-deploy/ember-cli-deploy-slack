@@ -16,6 +16,7 @@ describe('SlackNotifier', function() {
 
   beforeEach(function() {
     slack = new SlackNotifier({
+      enabled: true,
       webhookURL: WEBHOOK_URL,
       channel: CHANNEL,
       username: USER_NAME
@@ -31,35 +32,58 @@ describe('SlackNotifier', function() {
 
   it('it can be initialized', function() {
     expect(slack).to.be.ok;
+    expect(slack.enabled).to.eql(true);
     expect(slack.webhookURL).to.eql(WEBHOOK_URL);
     expect(slack.channel).to.eql(CHANNEL);
     expect(slack.username).to.eql(USER_NAME);
   });
 
-  describe('#notify', function() {
-    it('is callable', function() {
-      expect(typeof(slack.notify)).to.eql('function');
+  describe('enabled', function() {
+    describe('#notify', function() {
+      it('is callable', function() {
+        expect(typeof(slack.notify)).to.eql('function');
+      });
+
+      it('sends the correct params to the node-slackr library', function() {
+        var messages = {
+            text: "using node-slackr to send messages to slack"
+        };
+
+        slack.notify(messages);
+
+        expect(slackNotify.calledWith(messages)).to.be.ok;
+      });
+
+      it('returns a promise', function() {
+        var messages = {
+            text: "I can haz promises instead of callbacks"
+        };
+
+        expect(slack.notify(messages).then).to.be.ok;
+        expect(slack.notify(messages).catch).to.be.ok;
+      });
+    });
+  });
+
+  describe('disabled', function() {
+    beforeEach(function() {
+      slack = new SlackNotifier({
+        enabled: false,
+        webhookURL: WEBHOOK_URL,
+        channel: CHANNEL,
+        username: USER_NAME
+      });
     });
 
-    it('sends the correct params to the node-slackr library', function() {
-      var messages = {
-          text: "using node-slackr to send messages to slack"
-      };
+    describe('#notify', function() {
+      it('is callable', function() {
+        expect(typeof(slack.notify)).to.eql('function');
+      });
 
-      slack.notify(messages);
-
-      expect(slackNotify.calledWith(messages)).to.be.ok;
+      it('returns a promise', function() {
+        expect(slack.notify({}).then).to.be.ok;
+        expect(slack.notify({}).catch).to.be.ok;
+      });
     });
-
-    it('returns a promise', function() {
-      var messages = {
-          text: "I can haz promises instead of callbacks"
-      };
-
-      expect(slack.notify(messages).then).to.be.ok;
-      expect(slack.notify(messages).catch).to.be.ok;
-    });
-
-
   });
 })
