@@ -38,6 +38,42 @@ describe('SlackNotifier', function() {
     expect(slack.username).to.eql(USER_NAME);
   });
 
+  describe('#_getSlackOptions', function() {
+    it("snake_cases and adds `iconURL` and/or `iconEmoji` options if they are set", function() {
+      var iconEmojiOnly = new SlackNotifier({
+        enabled: true,
+        webhookURL: WEBHOOK_URL,
+        channel: CHANNEL,
+        username: USER_NAME,
+        iconEmoji: ':dromedary_camel:'
+      });
+      var bothOptions = new SlackNotifier({
+        enabled: true,
+        webhookURL: WEBHOOK_URL,
+        channel: CHANNEL,
+        username: USER_NAME,
+        iconEmoji: ':dromedary_camel:',
+        iconURL: 'http://placehold.it/128x128'
+      });
+
+      expect(slack._getSlackOptions()).to.eql({
+        channel: CHANNEL,
+        username: USER_NAME
+      });
+      expect(iconEmojiOnly._getSlackOptions()).to.eql({
+        channel: CHANNEL,
+        username: USER_NAME,
+        icon_emoji: ':dromedary_camel:'
+      });
+      expect(bothOptions._getSlackOptions()).to.eql({
+        channel: CHANNEL,
+        username: USER_NAME,
+        icon_emoji: ':dromedary_camel:',
+        icon_url: 'http://placehold.it/128x128'
+      });
+    });
+  });
+
   describe('enabled', function() {
     describe('#notify', function() {
       it('is callable', function() {

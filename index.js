@@ -136,12 +136,16 @@ module.exports = {
 
         var channel   = this.readConfig('channel');
         var username  = this.readConfig('username');
+        var iconURL  = this.readConfig('iconURL');
+        var iconEmoji  = this.readConfig('iconEmoji');
 
         return this.readConfig('slackNotifier') || new SlackNotifier({
           enabled: enabled,
           webhookURL: webhookURL,
           channel: channel,
-          username: username
+          username: username,
+          iconURL: iconURL,
+          iconEmoji: iconEmoji
         });
       }
     });
