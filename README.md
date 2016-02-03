@@ -70,6 +70,14 @@ The channel in slack that the notification should be displayed in in Slack.
 
 The username that will send the message in Slack.
 
+###iconURL
+
+URL to an image to use as the message's icon.
+
+###iconEmoji
+
+Slack emoji code to use as the message's icon (like `:heart_eyes_cat:` or `:saxophone:`).
+
 ## Customization
 
 `ember-cli-deploy-slack` will send default messages on the `didDeploy`- and
