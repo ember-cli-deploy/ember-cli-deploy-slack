@@ -140,4 +140,4 @@ to see how you can customize your messages.
 
 - `npm test`
 
-[2]: http://ember-cli.github.io/ember-cli-deploy/plugins "Plugin Documentation"
+[2]: http://ember-cli-deploy.com/docs/v0.6.x/plugins-overview/ "Plugin Documentation"
