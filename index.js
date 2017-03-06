@@ -30,7 +30,7 @@ module.exports = {
             var startDeployDate    = this.context.slackStartDeployDate;
             var endDeployDate      = new Date();
             var duration           = moment.duration(endDeployDate - startDeployDate);
-            var value = duration.minutes() + '[min], ' + duration.seconds() + ' [s], ' + duration.milliseconds() + ' [ms].';
+            var value = duration.minutes() + ' min, ' + duration.seconds() + ' s, ' + duration.milliseconds() + ' ms.';
 
             return slack.notify({
               attachments: [{
