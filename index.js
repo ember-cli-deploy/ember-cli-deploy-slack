@@ -7,7 +7,6 @@ var SlackNotifier = require('./lib/slack-notifier');
 var DeployPluginBase = require('ember-cli-deploy-plugin');
 
 var moment = require('moment');
-require('moment-duration-format');
 
 module.exports = {
   name: 'ember-cli-deploy-slack',
@@ -31,6 +30,7 @@ module.exports = {
             var startDeployDate    = this.context.slackStartDeployDate;
             var endDeployDate      = new Date();
             var duration           = moment.duration(endDeployDate - startDeployDate);
+            var value = duration.minutes() + ' min, ' + duration.seconds() + ' s, ' + duration.milliseconds() + ' ms.';
 
             return slack.notify({
               attachments: [{
@@ -40,7 +40,7 @@ module.exports = {
                 "fields":[
                    {
                       "title":"Stats",
-                      "value":"Deploying revision took "+duration.format('m [min], s [s], S [ms]')+'.',
+                      "value":"Deploying revision took "+value,
                       "short":false
                    }
                  ]
