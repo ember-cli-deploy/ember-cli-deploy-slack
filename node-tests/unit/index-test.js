@@ -1,5 +1,5 @@
 'use strict';
-var Promise = require('ember-cli/lib/ext/promise');
+var RSVP   = require('rsvp');
 var assert = require('ember-cli/tests/helpers/assert');
 
 var WEBHOOK_URL = 'https://hooks.slack.com/services/123123';
@@ -156,7 +156,7 @@ describe('the index', function() {
             slackNotifier: {
               notify: function(message){
                 slackMessages.push(message);
-                return Promise.resolve();
+                return RSVP.resolve();
               }
             }
           }
