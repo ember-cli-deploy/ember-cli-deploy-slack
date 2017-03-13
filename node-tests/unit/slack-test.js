@@ -1,8 +1,7 @@
 var expect        = require('chai').expect;
 var sinon         = require('sinon');
-var Slack = require('node-slackr');
+var Slack         = require('node-slackr');
 var SlackNotifier = require('../../lib/slack-notifier.js');
-var Promise    = require('ember-cli/lib/ext/promise');
 
 var WEBHOOK_URL = 'https://hooks.slack.com/services/123123';
 var CHANNEL     = '#testing';

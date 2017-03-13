@@ -53,6 +53,7 @@
     "ember-cli-deploy-plugin": "^0.2.1",
     "moment": "^2.17.1",
     "node-slackr": "^0.1.0",
+    "rsvp": "^3.4.0",
     "silent-error": "^1.0.0"
   },
   "ember-addon": {

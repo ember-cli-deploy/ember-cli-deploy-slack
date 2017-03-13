@@ -1,7 +1,6 @@
 /* jshint node: true */
 'use strict';
 
-var Promise       = require('ember-cli/lib/ext/promise');
 var SilentError   = require('silent-error');
 var SlackNotifier = require('./lib/slack-notifier');
 var DeployPluginBase = require('ember-cli-deploy-plugin');
