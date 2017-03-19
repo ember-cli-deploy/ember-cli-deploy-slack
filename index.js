@@ -1,7 +1,6 @@
-/* jshint node: true */
+/*eslint-env node*/
 'use strict';
 
-var SilentError   = require('silent-error');
 var SlackNotifier = require('./lib/slack-notifier');
 var DeployPluginBase = require('ember-cli-deploy-plugin');
 
@@ -16,15 +15,15 @@ module.exports = {
       defaultConfig: {
         enabled: true,
 
-        willDeploy: function(context) {
-          return function(slack){
+        willDeploy: function(/* context */) {
+          return function(/* slack */){
             return {
               slackStartDeployDate: new Date()
             };
           }
         },
 
-        didDeploy: function(context) {
+        didDeploy: function(/* context */) {
           return function(slack){
             var startDeployDate    = this.context.slackStartDeployDate;
             var endDeployDate      = new Date();
@@ -48,7 +47,7 @@ module.exports = {
           };
         },
 
-        didFail: function(context) {
+        didFail: function(/* context */) {
           return function(slack) {
             var message = "Ember-cli-deploy tried to deploy a revision but failed.";
 

@@ -1,16 +1,17 @@
+/*eslint-env node*/
 'use strict';
 var RSVP   = require('rsvp');
-var assert = require('ember-cli/tests/helpers/assert');
+var chai  = require('chai');
+var chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
 
-var WEBHOOK_URL = 'https://hooks.slack.com/services/123123';
-var CHANNEL     = '#testing';
-var USER_NAME   = 'ember-cli-deploy';
+var assert = chai.assert;
 
 describe('the index', function() {
-  var subject, mockUi, sandbox;
+  var subject, mockUi;
 
   beforeEach(function() {
-    subject = require('../../index');
+    subject = require('../index');
     mockUi = {
       messages: [],
       write: function() { },
@@ -166,10 +167,9 @@ describe('the index', function() {
       plugin.configure(context);
 
       return assert.isFulfilled(plugin.didDeploy(context))
-        .then(function(result) {
+        .then(function(/* result */) {
           assert.equal(slackMessages.length, 1);
         });
     });
   });
 });
-

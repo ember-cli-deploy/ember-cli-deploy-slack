@@ -1,7 +1,8 @@
+/*eslint-env node*/
 var expect        = require('chai').expect;
 var sinon         = require('sinon');
 var Slack         = require('node-slackr');
-var SlackNotifier = require('../../lib/slack-notifier.js');
+var SlackNotifier = require('../lib/slack-notifier.js');
 
 var WEBHOOK_URL = 'https://hooks.slack.com/services/123123';
 var CHANNEL     = '#testing';
