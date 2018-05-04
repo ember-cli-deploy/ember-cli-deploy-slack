@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.0.1](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/tree/v1.0.1) (2018-05-04)
+[Full Changelog](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/compare/v1.0.0...v1.0.1)
+
+- Update ember-cli [\#20](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/pull/20) ([LevelbossMike](https://github.com/levelbossmike))
+- Upgrade node-slackr to v0.2.0 [\#19](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/pull/19) ([mjcbsn22](https://github.com/mjcbsn22))
+
 ## [v1.0.0](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/tree/v1.0.0) (2017-03-25)
 [Full Changelog](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/compare/v1.0.0-beta.0...v1.0.0)
 
