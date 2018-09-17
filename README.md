@@ -58,23 +58,23 @@ For detailed information on what plugin hooks are and how they work, please refe
 
 For detailed information on how configuration of plugins works, please refer to the [Plugin Documentation][2].
 
-###webhookURL
+### webhookURL
 
 The [webhook](https://api.slack.com/incoming-webhooks) in Slack that the plugin will notify.
 
-###channel
+### channel
 
-The channel in slack that the notification should be displayed in in Slack.
+The Slack channel that the notification should be displayed in.
 
-###username
+### username
 
 The username that will send the message in Slack.
 
-###iconURL
+### iconURL
 
 URL to an image to use as the message's icon.
 
-###iconEmoji
+### iconEmoji
 
 Slack emoji code to use as the message's icon (like `:heart_eyes_cat:` or `:saxophone:`).
 
