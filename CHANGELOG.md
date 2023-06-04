@@ -1,5 +1,15 @@
 # Change Log
 
+
+## v2.0.0 (2023-06-04)
+
+#### :boom: Breaking Change
+* [#23](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/pull/23) Update dependencies and node version requirements ([@lukemelia](https://github.com/lukemelia))
+
+#### Committers: 2
+- Luke Melia ([@lukemelia](https://github.com/lukemelia))
+- Olle Jonsson ([@olleolleolle](https://github.com/olleolleolle))
+
 ## [v1.0.1](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/tree/v1.0.1) (2018-05-04)
 [Full Changelog](https://github.com/ember-cli-deploy/ember-cli-deploy-slack/compare/v1.0.0...v1.0.1)
 
