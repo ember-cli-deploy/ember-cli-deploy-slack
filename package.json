@@ -12,33 +12,32 @@
     "autotest": "node node_modules/mocha/bin/mocha --watch --reporter spec tests/**/*-test.js"
   },
   "engines": {
-    "node": "6.* || >= 8.*"
+    "node": "14.* || 16.* || 18.* || >= 20.*"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.0.0",
-    "chai-as-promised": "^6.0.0",
-    "ember-cli": "^3.1.0",
-    "ember-cli-release": "^1.0.0-beta.2",
-    "eslint": "^3.18.0",
-    "github": "^9.2.0",
-    "mocha": "^3.2.0",
-    "multiline": "^1.0.2",
-    "sinon": "^2.0.0"
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "ember-cli": "^3.28.6",
+    "eslint": "^8.42.0",
+    "github": "^14.0.0",
+    "mocha": "^10.2.0",
+    "multiline": "^2.0.0",
+    "sinon": "^2.4.1"
   },
   "keywords": [
     "ember-addon",
     "ember-cli-deploy-plugin"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
-    "core-object": "^2.0.0",
-    "ember-cli-deploy-plugin": "^0.2.3",
+    "chalk": "^1.1.3",
+    "core-object": "^2.1.1",
+    "ember-cli-deploy-plugin": "^0.2.9",
     "moment": "^2.17.1",
     "node-slackr": "^0.2.0",
-    "rsvp": "^3.5.0",
-    "silent-error": "^1.0.0"
+    "rsvp": "^4.8.5",
+    "silent-error": "^1.1.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
