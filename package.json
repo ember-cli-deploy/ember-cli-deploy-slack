@@ -41,6 +41,9 @@
     "rsvp": "^4.8.5",
     "silent-error": "^1.1.1"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "release-it": {
     "plugins": {
       "release-it-lerna-changelog": {
